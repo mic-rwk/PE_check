@@ -25,7 +25,11 @@ class Pdf_menager:
         text = page.extract_text()
         return text
     
-if __name__ == "__main__":
+def main() -> None:
     Pdf_menager.get_info()
     Pdf_menager.download()
     text = Pdf_menager.convert_to_text()
+    print(text)
+
+if __name__ == "__main__":
+    main()
