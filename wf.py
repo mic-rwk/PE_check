@@ -2,20 +2,11 @@ import requests
 from pypdf import PdfReader
 import re
 import pandas as pd
+from pdf_menager import Pdf_menager
 
-#pobieranie pliku
-user_agent = "scrapping_script/1.0"
-headers = {'User-Agent': user_agent}
-URL = "https://swfis.pwr.edu.pl/fcp/BGBUKOQtTKlQhbx08SlkTWwVQX2o8DAoHNiwFE1wZDyEPG1gnBVcoFW8SBDRKTxMKRy0SODwBBAEIMQheCFVAORFCHzY/81/public/konsultacje/fakultety_24z.pdf"
-r = requests.get(URL, headers=headers, stream = True)
-with open("/Users/micha/Desktop/fakultetZima.pdf", "wb") as fd:
-    fd.write(r.content)
-
-reader = PdfReader('/Users/micha/Desktop/fakultetZima.pdf')
-
-page = reader.pages[0]
-
-text = page.extract_text()
+Pdf_menager.get_info()
+Pdf_menager.download()
+text = Pdf_menager.convert_to_text()
 
 pattern = "odwołane"
 pattern_2 = r"\d{2}.\d{2}.\d{4}"
