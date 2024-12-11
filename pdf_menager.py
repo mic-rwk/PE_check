@@ -1,6 +1,7 @@
 import requests
 from pypdf import PdfReader
 import re
+import os
 
 class Pdf_menager:
     user_agent = "scrapping_script/1.0"
@@ -25,11 +26,19 @@ class Pdf_menager:
         text = page.extract_text()
         return text
     
+    @staticmethod
+    def remove_file() -> None:
+        if os.path.exists("/Users/micha/Desktop/fakultetZima.pdf"):
+            os.remove("/Users/micha/Desktop/fakultetZima.pdf")
+        else:
+            print("The file does not exist")
+    
 def main() -> None:
     Pdf_menager.get_info()
     Pdf_menager.download()
     text = Pdf_menager.convert_to_text()
     print(text)
+    Pdf_menager.remove_file()
 
 if __name__ == "__main__":
     main()
