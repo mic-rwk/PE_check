@@ -19,7 +19,9 @@ def main():
 
     all_pe_activities.add_list(lines_list)
 
-    all_pe_activities.print_activities()
+    #all_pe_activities.print_activities()
+
+    print(*all_pe_activities.find_cancelled(), sep='\n')
 
     # for i in range(1, len(lines_list)):
     #     current_line = lines_list[i]
