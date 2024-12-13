@@ -34,6 +34,8 @@ def main():
 
     deleted_pe_activities.print_activities()
 
+    Pdf_menager.remove_file()
+
 if __name__ == "__main__":
     main()
 
