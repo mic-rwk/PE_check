@@ -16,23 +16,32 @@ def main():
     lines_list = text.splitlines()
 
     all_pe_activities : PeActivities = PeActivities()
-    deleted_pe_activities : PeActivities = PeActivities()
 
-    for i in range(1, len(lines_list)): 
-        current_line = lines_list[i]
-        previous_line = lines_list[i - 1]
+    all_pe_activities.add_list(lines_list)
 
-        all_pe_activities.add_activities(current_line)
+    all_pe_activities.print_activities()
+
+    # for i in range(1, len(lines_list)):
+    #     current_line = lines_list[i]
+    #     all_pe_activities.add_activities(current_line)
+
+    # deleted_pe_activities : PeActivities = PeActivities()
+
+    # for i in range(1, len(lines_list)): 
+    #     current_line = lines_list[i]
+    #     previous_line = lines_list[i - 1]
+
+    #     all_pe_activities.add_activities(current_line)
         
-        if re.search(pattern, current_line):
-            if len(current_line) > len(pattern):
-                deleted_pe_activities.add_activities(current_line)
+    #     if re.search(pattern, current_line):
+    #         if len(current_line) > len(pattern):
+    #             deleted_pe_activities.add_activities(current_line)
         
-        elif re.search(pattern_2, current_line):
-            text_with_date =  previous_line + " " + current_line  
-            deleted_pe_activities.add_activities(previous_line)
+    #     elif re.search(pattern_2, current_line):
+    #         text_with_date =  previous_line + " " + current_line  
+    #         deleted_pe_activities.add_activities(previous_line)
 
-    deleted_pe_activities.print_activities()
+    # deleted_pe_activities.print_activities()
 
     Pdf_menager.remove_file()
 
