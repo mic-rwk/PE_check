@@ -4,6 +4,7 @@ import re
 import pandas as pd
 from pdf_menager import Pdf_menager
 from pe_activities import PeActivities
+from ui import UI
 
 def main():
     Pdf_menager.get_info()
@@ -21,7 +22,7 @@ def main():
 
     #all_pe_activities.print_activities()
 
-    print(*all_pe_activities.find_cancelled(), sep='\n')
+    UI.show_cancelled_classes(all_pe_activities.find_cancelled())
 
     # for i in range(1, len(lines_list)):
     #     current_line = lines_list[i]
