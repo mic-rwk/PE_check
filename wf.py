@@ -17,7 +17,11 @@ def main():
 
     all_pe_activities.add_list(lines_list)
 
-    UI.show_cancelled_classes(all_pe_activities.find_cancelled())
+    #all_pe_activities.print_activities()
+
+    #UI.show_cancelled_classes(all_pe_activities.find_cancelled())
+
+    UI.show_upcoming_week(all_pe_activities)
 
     Pdf_menager.remove_file()
 
