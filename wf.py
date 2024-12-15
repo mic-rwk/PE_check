@@ -11,40 +11,13 @@ def main():
     Pdf_menager.download()
     text = Pdf_menager.convert_to_text()
 
-    pattern = "odwołane"
-    pattern_2 = r"\d{2}.\d{2}.\d{4}"
-
     lines_list = text.splitlines()
 
     all_pe_activities : PeActivities = PeActivities()
 
     all_pe_activities.add_list(lines_list)
 
-    #all_pe_activities.print_activities()
-
     UI.show_cancelled_classes(all_pe_activities.find_cancelled())
-
-    # for i in range(1, len(lines_list)):
-    #     current_line = lines_list[i]
-    #     all_pe_activities.add_activities(current_line)
-
-    # deleted_pe_activities : PeActivities = PeActivities()
-
-    # for i in range(1, len(lines_list)): 
-    #     current_line = lines_list[i]
-    #     previous_line = lines_list[i - 1]
-
-    #     all_pe_activities.add_activities(current_line)
-        
-    #     if re.search(pattern, current_line):
-    #         if len(current_line) > len(pattern):
-    #             deleted_pe_activities.add_activities(current_line)
-        
-    #     elif re.search(pattern_2, current_line):
-    #         text_with_date =  previous_line + " " + current_line  
-    #         deleted_pe_activities.add_activities(previous_line)
-
-    # deleted_pe_activities.print_activities()
 
     Pdf_menager.remove_file()
 
