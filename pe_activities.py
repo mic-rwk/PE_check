@@ -8,9 +8,12 @@ class PeActivities:
         self.activities.append(activity)
 
     def add_list(self, lines_list : list) -> None:
-        for i in range(1, len(lines_list)):
-            current_line = lines_list[i]
-            self.add_activities(current_line)
+        pattern = ["poniedziałek", "wtorek", "środa", "czwartek", "piątek"]
+        for j in range(0,len(pattern)):
+            for i in range(1, len(lines_list)):
+                current_line = lines_list[i]
+                if re.search(pattern[j],current_line):
+                    self.add_activities(current_line)
     
     def print_activities(self) -> None:
         print(*self.activities, sep ="\n")
