@@ -37,6 +37,14 @@ class PeActivities:
                 deleted_pe_activities.append(previous_line)
         
         return deleted_pe_activities
+    
+    def return_activity_index(self, i : int) -> int:
+        patterns = {"poniedziałek" : 0, "wtorek" : 1, 
+                    "środa" : 2, "czwartek" : 3, "piątek" : 4}
+        for key, value in patterns.items():
+            if re.search(key, self.activities[i]):
+                return value
+                
     def get_activities(self) -> list:
         return self.activities
        
