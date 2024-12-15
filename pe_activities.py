@@ -37,7 +37,7 @@ class PeActivities:
                 deleted_pe_activities.append(previous_line)
         
         return deleted_pe_activities
-        
+       
 def main():
     example = PeActivities()
     example.add_activities("Przykładowe zajęcia odwołane")
