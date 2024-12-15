@@ -7,6 +7,8 @@ class UI:
     @staticmethod
     def show_upcoming_week(all_classes : PeActivities):
         today = date.today().weekday()
+        if(today == 5 or today == 6):
+            today = 0
         count : int = today
         i : int = 0
         check_value = 0         #zaczynamy od poniedziałku
@@ -15,7 +17,7 @@ class UI:
                 check_value += 1                                        #zmiana dnia
                 count += 1
             if all_classes.return_activity_index(i) >= today:
-                print(all_classes[i])
+                print(all_classes.activities[i])
             i += 1
 
         i = 0
