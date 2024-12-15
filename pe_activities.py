@@ -21,7 +21,7 @@ class PeActivities:
 
         deleted_pe_activities : PeActivities = []
 
-        for i in range(1, len(self.activities)): 
+        for i in range(0, len(self.activities)): 
             current_line = self.activities[i]
             previous_line = self.activities[i - 1]
             
