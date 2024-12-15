@@ -37,6 +37,8 @@ class PeActivities:
                 deleted_pe_activities.append(previous_line)
         
         return deleted_pe_activities
+    def get_activities(self) -> list:
+        return self.activities
        
 def main():
     example = PeActivities()
