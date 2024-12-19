@@ -9,24 +9,14 @@ class UI:
         today = date.today().weekday()
         if(today == 5 or today == 6):
             today = 0
-        count : int = today
         i : int = 0
-        check_value = 0         #zaczynamy od poniedziałku
-        while count <= 4 and i < len(all_classes.get_activities()):       #zajęcia do piątku włącznie
-            if check_value != all_classes.return_activity_index(i):   #czy nastapila zmiana dnia
-                check_value += 1                                        #zmiana dnia
-                count += 1
+        while i < len(all_classes.get_activities()):       #zajęcia do piątku włącznie
             if all_classes.return_activity_index(i) >= today:
                 print(all_classes.activities[i])
             i += 1
 
         i = 0
-        count = 0
-        check_value = 0         #zaczynamy od poniedziałku
-        while count <= today and i < len(all_classes.get_activities()):    #nowy tydzien
-            if check_value != all_classes.return_activity_index(i):   #czy nastapila zmiana dnia
-                check_value += 1                                        #zmiana dnia
-                count += 1
+        while i < len(all_classes.get_activities()):    #nowy tydzien
             if all_classes.return_activity_index(i) <= today:
                 print(all_classes.activities[i])
             i += 1
