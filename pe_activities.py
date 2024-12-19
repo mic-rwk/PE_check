@@ -47,6 +47,9 @@ class PeActivities:
                 
     def get_activities(self) -> list:
         return self.activities
+    
+    def get_acivity(self, i : int) -> str:
+        return self.activities[i]
        
 def main():
     example = PeActivities()

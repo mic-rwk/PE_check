@@ -7,17 +7,18 @@ class UI:
     @staticmethod
     def show_upcoming_week(all_classes : PeActivities):
         today = date.today().weekday()
+        pattern = "Filia"
         if(today == 5 or today == 6):
             today = 0
         i : int = 0
         while i < len(all_classes.get_activities()):       #zajęcia do piątku włącznie
-            if all_classes.return_activity_index(i) >= today:
+            if all_classes.return_activity_index(i) >= today and not re.search(pattern,all_classes.get_acivity(i)):
                 print(all_classes.activities[i])
             i += 1
 
         i = 0
         while i < len(all_classes.get_activities()):    #nowy tydzien
-            if all_classes.return_activity_index(i) <= today:
+            if all_classes.return_activity_index(i) <= today and not re.search(pattern,all_classes.get_acivity(i)):
                 print(all_classes.activities[i])
             i += 1
             
