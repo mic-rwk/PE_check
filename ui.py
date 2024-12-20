@@ -7,20 +7,19 @@ class UI:
     @staticmethod
     def show_upcoming_week(all_classes : PeActivities):
         today = date.today().weekday()
+        today_date = date.today()
         pattern = "Filia"
-        if(today == 5 or today == 6):
-            today = 0
-        i : int = 0
-        while i < len(all_classes.get_activities()):       #zajęcia do piątku włącznie
-            if all_classes.return_activity_index(i) >= today and not re.search(pattern,all_classes.get_acivity(i)):
-                print(all_classes.activities[i])
-            i += 1
+        dates = [] # list with classes with dates
 
-        i = 0
-        while i < len(all_classes.get_activities()):    #nowy tydzien
-            if all_classes.return_activity_index(i) <= today and not re.search(pattern,all_classes.get_acivity(i)):
-                print(all_classes.activities[i])
-            i += 1
+        day_offset = 0  # counter of day shift
+        for i, activity in enumerate(all_classes.get_activities()):     #print days (today) - Friday
+            if all_classes.return_activity_index(i) >= today and not re.search(pattern, all_classes.get_acivity(i)):
+                if i > 0:
+                    if all_classes.return_activity_index(i) != all_classes.return_activity_index(i - 1) and all_classes.return_activity_index(i - 1) >= today:
+                        day_offset += 1
+                current_date = today_date + timedelta(days=day_offset)       
+                dates.append(f"{activity} {current_date.strftime('%d.%m.%Y')}")
+
             
     @staticmethod
     def show_cancelled_classes(all_classes : list[PeActivities]):
