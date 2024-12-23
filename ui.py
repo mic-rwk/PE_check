@@ -18,7 +18,7 @@ class UI:
                     if all_classes.return_activity_index(i) != all_classes.return_activity_index(i - 1) and all_classes.return_activity_index(i - 1) >= today:
                         day_offset += 1
                 current_date = today_date + timedelta(days=day_offset)       
-                dates.append(f"{activity} {current_date.strftime('%d.%m.%Y')} {day_offset}")
+                dates.append(f"{activity} {current_date.strftime('%d.%m.%Y')}")
 
         next_week_start = today_date + timedelta(days=(7 - today))              #omit weekend
         if next_week_start.weekday() != 0:
@@ -31,7 +31,7 @@ class UI:
                     if all_classes.return_activity_index(i) != all_classes.return_activity_index(i - 1):
                         day_offset += 1
                 current_date = today_date + timedelta(days=day_offset)       
-                dates.append(f"{activity} {current_date.strftime('%d.%m.%Y')} {day_offset}")
+                dates.append(f"{activity} {current_date.strftime('%d.%m.%Y')}")
 
         print(*dates, sep='\n')
         print(today_date)
