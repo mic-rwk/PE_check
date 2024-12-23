@@ -45,8 +45,27 @@ class UI:
         pass
 
     @staticmethod
-    def show_tommorow_classes(all_classes : PeActivities, cancelled_classes : PeActivities):
-        pass
+    def show_tomorow_classes(all_classes : PeActivities):
+        today = date.today().weekday()
+        today_date = date.today()
+        tomorrow_date = today_date + timedelta(days=1)
+        tomorrow = today + 1
+        if today > 4:
+            tomorrow_date = today_date + timedelta(days=7 - today)
+            tomorrow = today + (7 - today)
+        pattern = "Filia"
+        dates = [] # list with classes with dates
+
+        if today > 4:
+            for i, activity in enumerate(all_classes.get_activities()):
+                if all_classes.return_activity_index(i) == 0 and not re.search(pattern, all_classes.get_acivity(i)):
+                    dates.append(f"{activity} {tomorrow_date}")
+        else:
+            for i, activity in enumerate(all_classes.get_activities()):
+                if all_classes.return_activity_index(i) == tomorrow and not re.search(pattern, all_classes.get_acivity(i)):
+                    dates.append(f"{activity} {tomorrow_date.strftime('%d.%m.%Y')}")
+
+        print(*dates, sep='\n')
 
 def main():
    example_list = ["dzien itd",

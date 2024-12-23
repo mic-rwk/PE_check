@@ -21,7 +21,7 @@ def main():
 
     #UI.show_cancelled_classes(all_pe_activities.find_cancelled())
 
-    UI.show_upcoming_week(all_pe_activities)
+    UI.show_tommorow_classes(all_pe_activities)
 
     Pdf_menager.remove_file()
 
