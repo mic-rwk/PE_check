@@ -18,8 +18,23 @@ class UI:
                     if all_classes.return_activity_index(i) != all_classes.return_activity_index(i - 1) and all_classes.return_activity_index(i - 1) >= today:
                         day_offset += 1
                 current_date = today_date + timedelta(days=day_offset)       
-                dates.append(f"{activity} {current_date.strftime('%d.%m.%Y')}")
+                dates.append(f"{activity} {current_date.strftime('%d.%m.%Y')} {day_offset}")
 
+        next_week_start = today_date + timedelta(days=(7 - today))              #omit weekend
+        if next_week_start.weekday() != 0:
+            next_week_start += timedelta(days=(7 - next_week_start.weekday()))  # ensure it is Monday
+        day_offset = (next_week_start - today_date).days
+
+        for i, activity in enumerate(all_classes.get_activities()):     #print days Monday - (a week later from Today)
+            if all_classes.return_activity_index(i) <= today and not re.search(pattern, all_classes.get_acivity(i)):
+                if i > 0:
+                    if all_classes.return_activity_index(i) != all_classes.return_activity_index(i - 1):
+                        day_offset += 1
+                current_date = today_date + timedelta(days=day_offset)       
+                dates.append(f"{activity} {current_date.strftime('%d.%m.%Y')} {day_offset}")
+
+        print(*dates, sep='\n')
+        print(today_date)
             
     @staticmethod
     def show_cancelled_classes(all_classes : list[PeActivities]):
