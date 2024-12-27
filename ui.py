@@ -41,8 +41,13 @@ class UI:
         print(*all_classes, sep='\n')
 
     @staticmethod
-    def filtering(all_classes : PeActivities, cancelled_classes : PeActivities): #by day, time, place, sports and combined
-        pass
+    def filtering(all_classes : PeActivities, place=None, day=None, time=None, name=None): #by day, time, place, sports and combined
+        dates = []
+        for i, activity in enumerate(all_classes.get_activities()):
+            if re.search(place, all_classes.get_acivity(i)):
+                dates.append(f"{activity}")
+        
+        print(*dates, sep='\n')
 
     @staticmethod
     def show_tomorow_classes(all_classes : PeActivities):
