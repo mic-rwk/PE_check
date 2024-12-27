@@ -50,13 +50,25 @@ class PeActivities:
     
     def get_acivity(self, i : int) -> str:
         return self.activities[i]
+    
+    def get_time(self, i : int) -> list:
+        pattern = r"(\d{2}:\d{2})-(\d{2}:\d{2})"
+        
+        match = re.search(pattern, self.activities[i])
+        
+        if match:
+            start_time, end_time = match.groups()
+            return [start_time, end_time]
+        
+        return []
        
 def main():
     example = PeActivities()
     example.add_activities("Przykładowe zajęcia odwołane")
     example.add_activities("poniedziałek 18:50-20:20 P-23 2.0.17 siłownia Banaszczyk Grzegorz 16.12.2024 odwołane")
     example.add_activities("Trening siłowy")
-    print(*example.find_cancelled(), sep='\n')
+    #print(*example.find_cancelled(), sep='\n')
+    example.get_time(1)
 
 
 if __name__ == "__main__":
