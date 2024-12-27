@@ -53,14 +53,8 @@ class PeActivities:
     
     def get_time(self, i : int) -> list:
         pattern = r"(\d{2}:\d{2})-(\d{2}:\d{2})"
-        
         match = re.search(pattern, self.activities[i])
-        
-        if match:
-            start_time, end_time = match.groups()
-            return [start_time, end_time]
-        
-        return []
+        return match.groups() if match else []
        
 def main():
     example = PeActivities()
