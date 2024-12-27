@@ -41,12 +41,39 @@ class UI:
         print(*all_classes, sep='\n')
 
     @staticmethod
-    def filtering(all_classes : PeActivities, place=None, day=None, time=None, name=None): #by day, time, place, sports and combined
+    def filtering(all_classes : PeActivities, place : str = None, day : str = None, day_end : str = None, 
+                  time : str = None, time_end :str = None, name : str = None): #by day, time, place, sports and combined
         dates = []
+
+        conditions = {
+            "place": re.compile(place) if place else None,
+            "day": re.compile(day) if day else None,
+            "name": re.compile(name) if name else None
+        }
+
+        user_time_start = datetime.strptime(time, "%H:%M").time() if time else None
+        user_time_end = datetime.strptime(time_end, "%H:%M").time() if time_end else None
+
         for i, activity in enumerate(all_classes.get_activities()):
-            if re.search(place, all_classes.get_acivity(i)):
-                dates.append(f"{activity}")
-        
+            match = True
+
+            for key, regex in conditions.items():
+                if regex and not regex.search(all_classes.get_acivity(i)):
+                    match = False
+                    break
+
+            if match and (user_time_start or user_time_end):
+                time_list = all_classes.get_time(i)
+                if time_list:
+                    activity_start = datetime.strptime(time_list[0], "%H:%M").time()
+                    activity_end = datetime.strptime(time_list[1], "%H:%M").time()
+
+                    if (user_time_start and activity_start < user_time_start) or (user_time_end and activity_end > user_time_end):
+                        match = False
+
+            if match:
+                dates.append(activity)
+
         print(*dates, sep='\n')
 
     @staticmethod

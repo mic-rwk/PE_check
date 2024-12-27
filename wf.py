@@ -21,7 +21,8 @@ def main():
 
     #UI.show_cancelled_classes(all_pe_activities.find_cancelled())
 
-    UI.filtering(all_pe_activities,place="P-23")
+    UI.filtering(all_pe_activities,place="P-23",time="8:00", time_end="20:00")
+    #UI.filtering(all_pe_activities,place="P-23", day="wtorek",time="8:00", time_end="9:00")
 
     Pdf_menager.remove_file()
 
