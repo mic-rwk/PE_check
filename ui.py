@@ -55,9 +55,16 @@ class UI:
 
         conditions = {
             "place": re.compile(place) if place else None,
-            "day": re.compile(day) if day else None,
             "name": re.compile(name) if name else None
         }
+
+        day_start_index : int = None
+        day_end_index : int = None
+
+        if day != None:
+            day_start_index = UI.return_day_index(day)
+        if day_end != None:
+            day_end_index = UI.return_day_index(day_end)
 
         user_time_start = datetime.strptime(time, "%H:%M").time() if time else None
         user_time_end = datetime.strptime(time_end, "%H:%M").time() if time_end else None
@@ -77,6 +84,14 @@ class UI:
                     activity_end = datetime.strptime(time_list[1], "%H:%M").time()
 
                     if (user_time_start and activity_start < user_time_start) or (user_time_end and activity_end > user_time_end):
+                        match = False
+
+            if match:
+                if day and day_end:
+                    if(all_classes.return_activity_index(i) < day_start_index or all_classes.return_activity_index(i) > day_end_index):
+                        match = False
+                if day and day_end == None:
+                    if(all_classes.return_activity_index(i) < day_start_index or all_classes.return_activity_index(i) > day_start_index):
                         match = False
 
             if match:
