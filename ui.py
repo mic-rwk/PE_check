@@ -41,6 +41,14 @@ class UI:
         print(*all_classes, sep='\n')
 
     @staticmethod
+    def return_day_index(day : str) -> int:
+        patterns = {"poniedziałek" : 0, "wtorek" : 1, 
+                    "środa" : 2, "czwartek" : 3, "piątek" : 4}
+        for key, value in patterns.items():
+            if re.search(key, day):
+                return value
+
+    @staticmethod
     def filtering(all_classes : PeActivities, place : str = None, day : str = None, day_end : str = None, 
                   time : str = None, time_end :str = None, name : str = None): #by day, time, place, sports and combined
         dates = []
