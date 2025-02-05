@@ -7,15 +7,20 @@ class Pdf_menager:
     
     user_agent = "scrapping_script/1.0"
     headers = {'User-Agent': user_agent}
-    url = "https://swfis.pwr.edu.pl/fcp/BGBUKOQtTKlQhbx08SlkTWwVQX2o8DAoHNiwFE1wZDyEPG1gnBVcoFW8SBDRKTxMKRy0SODwBBAEIMQheCFVAORFCHzY/81/public/konsultacje/fakultety_24z.pdf"
+    urls = [
+        "https://swfis.pwr.edu.pl/fcp/BGBUKOQtTKlQhbx08SlkTWwVQX2o8DAoHNiwFE1wZDyEPG1gnBVcoFW8SBDRKTxMKRy0SODwBBAEIMQheCFVAORFCHzY/81/public/konsultacje/fakultety_24z.pdf",
+        "https://swfis.pwr.edu.pl/fcp/JGBUKOQtTKlQhbx08SlkTWwVQX2o8DAoHNiwFE1xVSXhXFVZpCFghUHcKVigEQUw/81/public/konsultacje/fakultety-sesja_24z.pdf"
+    ]
     reader : PdfReader
     path : str = "/Users/" + os.getlogin() + "/Desktop/fakultetZima.pdf"
 
     @classmethod
     def get_info(cls) -> None:
-        r = requests.get(cls.url, headers=cls.headers, stream = True)
-        with open(cls.path, "wb") as fd:
-            fd.write(r.content)
+        for url in cls.urls:
+                r = requests.get(url, headers=cls.headers, stream=True)
+                if r.status_code == 200:
+                    with open(cls.path, "wb") as fd:
+                        fd.write(r.content)
 
 #'/Users/micha/Desktop/fakultetZima.pdf'
     @classmethod
