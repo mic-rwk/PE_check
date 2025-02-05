@@ -17,11 +17,11 @@ def main():
 
     all_pe_activities.add_list(lines_list)
 
-    #all_pe_activities.print_activities()
+    all_pe_activities.print_activities()
 
     #UI.show_cancelled_classes(all_pe_activities.find_cancelled())
 
-    UI.filtering(all_pe_activities,place="P-23",day="wtorek",day_end="czwartek")
+    #UI.filtering(all_pe_activities,place="P-23",day="wtorek",day_end="czwartek")
     #UI.filtering(all_pe_activities,place="P-23", day="wtorek",time="8:00", time_end="9:00")
 
     Pdf_menager.remove_file()
