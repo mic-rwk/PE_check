@@ -13,13 +13,13 @@ def main():
 
     lines_list = text.splitlines()
 
-    print(*lines_list, sep='\n')
+    #print(*lines_list, sep='\n')
 
     all_pe_activities : PeActivities = PeActivities()
 
-    #all_pe_activities.add_list(lines_list)
+    all_pe_activities.add_list(lines_list)
 
-    #all_pe_activities.print_activities()
+    all_pe_activities.print_activities()
 
     #UI.show_cancelled_classes(all_pe_activities.find_cancelled())
 

@@ -1,4 +1,5 @@
 import re
+from datetime import *
 
 class PeActivities:
     def __init__(self):
@@ -7,16 +8,32 @@ class PeActivities:
     def add_activities(self, activity : str) -> None:
         self.activities.append(activity)
 
-    def add_list(self, lines_list : list) -> None:
-        pattern = ["poniedziałek", "wtorek", "środa", "czwartek", "piątek","-1-13","-1-21"]
-        pattern_2 = r'\A[ABCDE]'
-        pattern_3 = r"\d{2}.\d{2}.\d{4}"
+    import re
 
-        for j in range(0,len(pattern)):
-            for i in range(1, len(lines_list)):
-                current_line = lines_list[i]
-                if re.search(pattern[j],current_line) or re.search(pattern_2, current_line) or re.search(pattern_3, current_line):
-                    self.add_activities(current_line)
+    def add_list(self, lines_list: list) -> None:
+
+        current_day = None
+        pattern_days = r"poniedziałek|wtorek|środa|czwartek|piątek"
+        pattern_2 = r'^[ABCDE]'
+        pattern_3 = r"\b\d{1,2}[-./]\d{1,2}[-./]\d{4}\b"
+        pattern_4 = r"-1-"
+        date_pattern = r"(\d{2}[-./]\d{2}[-./]\d{4}) \((poniedziałek|wtorek|środa|czwartek|piątek|sobota|niedziela)\)"
+
+        for current_line in lines_list:
+            current_line = current_line.strip()
+
+            match = re.search(date_pattern, current_line)
+            if match:
+                date = match.group(1)
+                current_day = match.group(2)
+
+            if re.search(pattern_days, current_line) and not re.search(date_pattern, current_line):  
+                self.add_activities(f"{current_day} {current_line}")
+            
+            if re.search(pattern_2, current_line) or re.search(pattern_4, current_line):
+               self.add_activities(f"{current_day} {current_line}")
+
+
     
     def print_activities(self) -> None:
         print(*self.activities, sep ="\n")
