@@ -10,11 +10,12 @@ class PeActivities:
     def add_list(self, lines_list : list) -> None:
         pattern = ["poniedziałek", "wtorek", "środa", "czwartek", "piątek","-1-13","-1-21"]
         pattern_2 = r'\A[ABCDE]'
+        pattern_3 = r"\d{2}.\d{2}.\d{4}"
 
         for j in range(0,len(pattern)):
             for i in range(1, len(lines_list)):
                 current_line = lines_list[i]
-                if re.search(pattern[j],current_line) or re.search(pattern_2, current_line):
+                if re.search(pattern[j],current_line) or re.search(pattern_2, current_line) or re.search(pattern_3, current_line):
                     self.add_activities(current_line)
     
     def print_activities(self) -> None:
