@@ -29,8 +29,11 @@ class Pdf_menager:
 
     @classmethod
     def convert_to_text(cls) -> str:
-        page = cls.reader.pages[0]
-        text = page.extract_text()
+        count = cls.reader.get_num_pages()
+        text : str = ""
+        for i in range(count):
+            page = cls.reader.pages[i]
+            text += page.extract_text()
         return text
     
     @classmethod
