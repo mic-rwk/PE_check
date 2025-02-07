@@ -15,6 +15,7 @@ class PeActivities:
         current_day = None
         pattern_days = r"poniedziałek|wtorek|środa|czwartek|piątek"
         pattern_2 = r'^[ABCDE]'
+        pattern_3 = r"(\d{2}:\d{2})-(\d{2}:\d{2})"
         pattern_4 = r"-1-"
         date_pattern = r"(\d{2}[-./]\d{2}[-./]\d{4}) \((poniedziałek|wtorek|środa|czwartek|piątek|sobota|niedziela)\)"
 
@@ -29,7 +30,7 @@ class PeActivities:
             if re.search(pattern_days, current_line) and not re.search(date_pattern, current_line):  
                 self.add_activities(f"{current_day} {current_line}")
             
-            if re.search(pattern_2, current_line) or re.search(pattern_4, current_line):
+            if re.search(pattern_2, current_line) or re.search(pattern_4, current_line) or re.search(pattern_3, current_line):
                self.add_activities(f"{current_day} {current_line} {date}")
 
 
