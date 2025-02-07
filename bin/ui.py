@@ -118,16 +118,25 @@ class UI:
             tomorrow_date = today_date + timedelta(days=7 - today)
             tomorrow = today + (7 - today)
         pattern = "Filia"
+        date_pattern = r"(\d{2}[-./]\d{2}[-./]\d{4})"
         dates = [] # list with classes with dates
 
-        if today > 4:
+        print(tomorrow_date)
+
+        if today >= 4:
             for i, activity in enumerate(all_classes.get_activities()):
                 if all_classes.return_activity_index(i) == 0 and not re.search(pattern, all_classes.get_acivity(i)):
-                    dates.append(f"{activity} {tomorrow_date}")
+                    if re.search(date_pattern, all_classes.get_acivity(i)): 
+                        dates.append(f"{activity}")
+                    else:
+                        dates.append(f"{activity} {tomorrow_date}")
         else:
             for i, activity in enumerate(all_classes.get_activities()):
                 if all_classes.return_activity_index(i) == tomorrow and not re.search(pattern, all_classes.get_acivity(i)):
-                    dates.append(f"{activity} {tomorrow_date.strftime('%d.%m.%Y')}")
+                    if re.search(date_pattern, all_classes.get_acivity(i)): 
+                        dates.append(f"{activity}")
+                    else:
+                        dates.append(f"{activity} {tomorrow_date}")
 
         print(*dates, sep='\n')
 
