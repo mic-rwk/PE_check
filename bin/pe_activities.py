@@ -6,13 +6,12 @@ class PeActivities:
         self.activities : str = []
 
     def add_activities(self, activity : str) -> None:
-        self.activities.append(activity)
-
-    import re
+        self.activities.append(activity)   
 
     def add_list(self, lines_list: list) -> None:
 
-        current_day = None
+        date : str = None
+        current_day : str = None
         pattern_days = r"poniedziałek|wtorek|środa|czwartek|piątek"
         pattern_2 = r'^[ABCDE]'
         pattern_3 = r"(\d{2}:\d{2})-(\d{2}:\d{2})"
@@ -29,9 +28,9 @@ class PeActivities:
                 current_day = match.group(2)
 
             if re.search(pattern_days, current_line) and not re.search(date_pattern, current_line):  
-                self.add_activities(f"{current_day} {current_line}")
+                self.add_activities(f"{current_line}")
             
-            if re.search(pattern_2, current_line) or re.search(pattern_4, current_line) or re.search(pattern_3, current_line):
+            if re.search(pattern_2, current_line) and re.search(pattern_3, current_line):
                 current_line = re.sub(pattern_5, lambda m: m.group()[4], current_line)
                 current_line = re.sub(pattern_2,"P-23", current_line)
                 current_line = re.sub(pattern_4,"H-14", current_line)               
