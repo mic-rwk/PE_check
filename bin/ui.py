@@ -9,6 +9,7 @@ class UI:
         today = date.today().weekday()
         today_date = date.today()
         pattern = "Filia"
+        date_pattern = r"(\d{2}[-./]\d{2}[-./]\d{4})"
         dates = [] # list with classes with dates
 
         day_offset = 0  # counter of day shift
@@ -17,8 +18,12 @@ class UI:
                 if i > 0:
                     if all_classes.return_activity_index(i) != all_classes.return_activity_index(i - 1) and all_classes.return_activity_index(i - 1) >= today:
                         day_offset += 1
-                current_date = today_date + timedelta(days=day_offset)       
-                dates.append(f"{activity} {current_date.strftime('%d.%m.%Y')}")
+                current_date = today_date + timedelta(days=day_offset)
+                match = re.search(date_pattern,activity)       
+                if match and datetime.strptime(match.group(),"%d.%m.%Y").date() >= today_date:
+                    dates.append(f"{activity}")
+                elif not match:      
+                    dates.append(f"{activity} {current_date.strftime('%d.%m.%Y')}")
 
         next_week_start = today_date + timedelta(days=(7 - today))              #omit weekend
         if next_week_start.weekday() != 0:
@@ -30,11 +35,15 @@ class UI:
                 if i > 0:
                     if all_classes.return_activity_index(i) != all_classes.return_activity_index(i - 1):
                         day_offset += 1
-                current_date = today_date + timedelta(days=day_offset)       
-                dates.append(f"{activity} {current_date.strftime('%d.%m.%Y')}")
+                current_date = today_date + timedelta(days=day_offset)
+                match = re.search(date_pattern,activity)       
+                if match and datetime.strptime(match.group(),"%d.%m.%Y").date() >= today_date:
+                    dates.append(f"{activity}")
+                    continue
+                elif not match:      
+                    dates.append(f"{activity} {current_date.strftime('%d.%m.%Y')}")
 
         print(*dates, sep='\n')
-        print(today_date)
             
     @staticmethod
     def show_cancelled_classes(all_classes : list[PeActivities]):
@@ -109,16 +118,23 @@ class UI:
             tomorrow_date = today_date + timedelta(days=7 - today)
             tomorrow = today + (7 - today)
         pattern = "Filia"
+        date_pattern = r"(\d{2}[-./]\d{2}[-./]\d{4})"
         dates = [] # list with classes with dates
 
-        if today > 4:
+        if today >= 4:
             for i, activity in enumerate(all_classes.get_activities()):
                 if all_classes.return_activity_index(i) == 0 and not re.search(pattern, all_classes.get_acivity(i)):
-                    dates.append(f"{activity} {tomorrow_date}")
+                    if re.search(date_pattern, all_classes.get_acivity(i)): 
+                        dates.append(f"{activity}")
+                    else:
+                        dates.append(f"{activity} {tomorrow_date}")
         else:
             for i, activity in enumerate(all_classes.get_activities()):
                 if all_classes.return_activity_index(i) == tomorrow and not re.search(pattern, all_classes.get_acivity(i)):
-                    dates.append(f"{activity} {tomorrow_date.strftime('%d.%m.%Y')}")
+                    if re.search(date_pattern, all_classes.get_acivity(i)): 
+                        dates.append(f"{activity}")
+                    else:
+                        dates.append(f"{activity} {tomorrow_date}")
 
         print(*dates, sep='\n')
 

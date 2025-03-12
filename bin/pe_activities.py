@@ -1,19 +1,42 @@
 import re
+from datetime import *
 
 class PeActivities:
     def __init__(self):
         self.activities : str = []
 
     def add_activities(self, activity : str) -> None:
-        self.activities.append(activity)
+        self.activities.append(activity)   
 
-    def add_list(self, lines_list : list) -> None:
-        pattern = ["poniedziałek", "wtorek", "środa", "czwartek", "piątek"]
-        for j in range(0,len(pattern)):
-            for i in range(1, len(lines_list)):
-                current_line = lines_list[i]
-                if re.search(pattern[j],current_line):
-                    self.add_activities(current_line)
+    def add_list(self, lines_list: list) -> None:
+
+        date : str = None
+        current_day : str = None
+        pattern_days = r"poniedziałek|wtorek|środa|czwartek|piątek"
+        pattern_2 = r'^[ABCDE]'
+        pattern_3 = r"(\d{2}:\d{2})-(\d{2}:\d{2})"
+        pattern_4 = r"-1-.."
+        pattern_5 = r"[HP]\-[12][3-4][A-E]"
+        date_pattern = r"(\d{2}[-./]\d{2}[-./]\d{4}) \((poniedziałek|wtorek|środa|czwartek|piątek|sobota|niedziela)\)"
+
+        for current_line in lines_list:
+            current_line = current_line.strip()
+
+            match = re.search(date_pattern, current_line)
+            if match:
+                date = match.group(1)
+                current_day = match.group(2)
+
+            if re.search(pattern_days, current_line) and not re.search(date_pattern, current_line):  
+                self.add_activities(f"{current_line}")
+            
+            if re.search(pattern_2, current_line) and re.search(pattern_3, current_line):
+                current_line = re.sub(pattern_5, lambda m: m.group()[4], current_line)
+                current_line = re.sub(pattern_2,"P-23", current_line)
+                current_line = re.sub(pattern_4,"H-14", current_line)               
+                self.add_activities(f"{current_day} {current_line} {date}")
+
+
     
     def print_activities(self) -> None:
         print(*self.activities, sep ="\n")

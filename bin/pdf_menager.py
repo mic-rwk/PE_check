@@ -8,8 +8,7 @@ class Pdf_menager:
     user_agent = "scrapping_script/1.0"
     headers = {'User-Agent': user_agent}
     urls = [
-        "https://swfis.pwr.edu.pl/fcp/BGBUKOQtTKlQhbx08SlkTWwVQX2o8DAoHNiwFE1wZDyEPG1gnBVcoFW8SBDRKTxMKRy0SODwBBAEIMQheCFVAORFCHzY/81/public/konsultacje/fakultety_24z.pdf",
-        "https://swfis.pwr.edu.pl/fcp/JGBUKOQtTKlQhbx08SlkTWwVQX2o8DAoHNiwFE1xVSXhXFVZpCFghUHcKVigEQUw/81/public/konsultacje/fakultety-sesja_24z.pdf"
+        "https://swfis.pwr.edu.pl/fcp/JGBUKOQtTKlQhbx08SlkTWwVQX2o8DAoHNiwFE1xVSXhXFVZpCFghUHcKVigEQUw/81/public/konsultacje/fakultety_24l.pdf"
     ]
     reader : PdfReader
     path : str = "/Users/" + os.getlogin() + "/Desktop/fakultetZima.pdf"
@@ -29,8 +28,11 @@ class Pdf_menager:
 
     @classmethod
     def convert_to_text(cls) -> str:
-        page = cls.reader.pages[0]
-        text = page.extract_text()
+        count = cls.reader.get_num_pages()
+        text : str = ""
+        for i in range(count):
+            page = cls.reader.pages[i]
+            text += page.extract_text()
         return text
     
     @classmethod
