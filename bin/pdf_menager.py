@@ -4,7 +4,8 @@ import re
 import os
 
 class Pdf_menager:
-    
+    """A class used to represent PDF menager 
+    """
     user_agent = "scrapping_script/1.0"
     headers = {'User-Agent': user_agent}
     urls = [
@@ -15,6 +16,7 @@ class Pdf_menager:
 
     @classmethod
     def get_info(cls) -> None:
+        """Sends HTTP request to a server"""
         for url in cls.urls:
                 r = requests.get(url, headers=cls.headers, stream=True)
                 if r.status_code == 200:
@@ -24,10 +26,12 @@ class Pdf_menager:
 #'/Users/micha/Desktop/fakultetZima.pdf'
     @classmethod
     def download(cls) -> None:
+        """Download a document"""
         cls.reader = PdfReader(cls.path)
 
     @classmethod
     def convert_to_text(cls) -> str:
+        """Extract text from PDF file"""
         count = cls.reader.get_num_pages()
         text : str = ""
         for i in range(count):
@@ -37,6 +41,7 @@ class Pdf_menager:
     
     @classmethod
     def remove_file(cls) -> None:
+        """Erase the file from OS"""
         if os.path.exists(cls.path):
             os.remove(cls.path)
         else:
