@@ -2,6 +2,7 @@ import re
 from datetime import *
 
 class PeActivities:
+    """Class stores all lessons in a list as strings"""
     def __init__(self):
         self.activities : str = []
 
@@ -9,7 +10,7 @@ class PeActivities:
         self.activities.append(activity)   
 
     def add_list(self, lines_list: list) -> None:
-
+        """Add to a list with regex formula"""
         date : str = None
         current_day : str = None
         pattern_days = r"poniedziałek|wtorek|środa|czwartek|piątek"
@@ -42,6 +43,7 @@ class PeActivities:
         print(*self.activities, sep ="\n")
 
     def find_cancelled(self) -> list:
+        """Find cancelled lessons"""
         pattern : str= "odwołane"
         pattern_2 : str = r"\d{2}.\d{2}.\d{4}"
 
@@ -62,6 +64,7 @@ class PeActivities:
         return deleted_pe_activities
     
     def return_activity_index(self, i : int) -> int:
+        """Return value, that depends on what day it is. Same way as it is in the "date" library - weekday() method"""
         patterns = {"poniedziałek" : 0, "wtorek" : 1, 
                     "środa" : 2, "czwartek" : 3, "piątek" : 4}
         for key, value in patterns.items():
@@ -75,6 +78,7 @@ class PeActivities:
         return self.activities[i]
     
     def get_time(self, i : int) -> list:
+        """Return list of two elements. Elements are: start and the end of lesson."""
         pattern = r"(\d{2}:\d{2})-(\d{2}:\d{2})"
         match = re.search(pattern, self.activities[i])
         return match.groups() if match else []
