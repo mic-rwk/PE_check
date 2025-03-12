@@ -121,8 +121,6 @@ class UI:
         date_pattern = r"(\d{2}[-./]\d{2}[-./]\d{4})"
         dates = [] # list with classes with dates
 
-        print(tomorrow_date)
-
         if today >= 4:
             for i, activity in enumerate(all_classes.get_activities()):
                 if all_classes.return_activity_index(i) == 0 and not re.search(pattern, all_classes.get_acivity(i)):
