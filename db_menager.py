@@ -37,22 +37,37 @@ CREATE_STUDENT_TABLE = "CREATE TABLE IF NOT EXISTS Student (Student_Index INTEGE
 CREATE_SUBJECT_TABLE = "CREATE TABLE IF NOT EXISTS Subject (Subject_ID INTEGER PRIMARY KEY, " \
                                                             "Subject_Name TEXT NOT NULL)"
 
-CREATE_RESERVATION_TABLE = "CREATE TABLE IF NOT EXISTS Reservation (Student_Index INTEGER, " \
-                                                                    "Class_ID INTEGER,  " \
+CREATE_RESERVATION_TABLE = "CREATE TABLE IF NOT EXISTS Reservation (Student_Index INTEGER NOT NULL, " \
+                                                                    "Class_ID INTEGER NOT NULL,  " \
                                                                     "Reservation_Date TEXT NOT NULL, " \
                                                                     "Status TEXT NOT NULL, " \
                                                                     "Note TEXT NOT NULL," \
                                                                     "FOREIGN KEY(Class_ID) REFERENCES Class(Class_ID)," \
-                                                                    "FOREIGN KEY(Student_Index) REFERENCES Student(Index))"
+                                                                    "FOREIGN KEY(Student_Index) REFERENCES Student(Student_Index))"
 
 
 class dbMenager:
 
-    @classmethod
-    def connect():
-        return sqlite3.connect("zajecia.db")
+    def __init__(self, db_name = "zajecia.db"):
+        self.connection = sqlite3.connect(db_name)
     
-    @classmethod
-    def create_tables(connection):
-        with connection:
-            connection.execute(CREATE_BUILDING_TABLE)
+    def create_tables(self):
+        with self.connection:
+            self.connection.execute(CREATE_BUILDING_TABLE)
+            self.connection.execute(CREATE_CLASS_TABLE)
+            self.connection.execute(CREATE_SUBJECT_TABLE)
+            self.connection.execute(CREATE_LECTURER_TABLE)
+            self.connection.execute(CREATE_ROOM_TABLE)
+            self.connection.execute(CREATE_STUDENT_TABLE)
+            self.connection.execute(CREATE_RESERVATION_TABLE)
+            
+
+    def close(self):
+        self.connection.close()
+
+
+if __name__ == "__main__":
+    db = dbMenager()
+    db.create_tables()
+    print("Sukces tworzenia BD")
+    db.close()
