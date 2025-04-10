@@ -27,7 +27,7 @@ CREATE_ROOM_TABLE = "CREATE TABLE IF NOT EXISTS Room (Room_ID INTEGER PRIMARY KE
                                                     "Building_ID TEXT NOT NULL, " \
                                                     "FOREIGN KEY(Building_ID) REFERENCES Building(Building_ID))"
 
-CREATE_STUDENT_TABLE = "CREATE TABLE IF NOT EXISTS Student (Index INTEGER PRIMARY KEY, " \
+CREATE_STUDENT_TABLE = "CREATE TABLE IF NOT EXISTS Student (Student_Index INTEGER PRIMARY KEY, " \
                                                             "First_Name TEXT NOT NULL, " \
                                                             "Last_Name TEXT NOT NULL, " \
                                                             "Major TEXT NOT NULL, " \
