@@ -1,5 +1,8 @@
 import sqlite3
 
+
+CREATE_BUILDING_TABLE  = "CREATE TABLE Building (Building_ID TEXT PRIMARY KEY, Adress TEXT NOT NULL)"
+
 class dbMenager:
 
     @classmethod
