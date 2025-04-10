@@ -45,6 +45,12 @@ CREATE_RESERVATION_TABLE = "CREATE TABLE IF NOT EXISTS Reservation (Student_Inde
                                                                     "FOREIGN KEY(Class_ID) REFERENCES Class(Class_ID)," \
                                                                     "FOREIGN KEY(Student_Index) REFERENCES Student(Student_Index))"
 
+CREATE_WAITING_LIST_TABLE = "CREATE TABLE IF NOT EXISTS WaitingList (Waiting_ID INTEGER PRIMARY KEY AUTOINCREMENT," \
+                                                                    "Student_Index INTEGER NOT NULL, " \
+                                                                    "Class_ID INTEGER NOT NULL, " \
+                                                                    "Request_Date TEXT NOT NULL, " \
+                                                                    "FOREIGN KEY(Student_Index) REFERENCES Student(Student_Index)," \
+                                                                    "FOREIGN KEY(Class_ID) REFERENCES Class(Class_ID))"
 
 class dbMenager:
 
@@ -60,6 +66,7 @@ class dbMenager:
             self.connection.execute(CREATE_ROOM_TABLE)
             self.connection.execute(CREATE_STUDENT_TABLE)
             self.connection.execute(CREATE_RESERVATION_TABLE)
+            self.connection.execute(CREATE_WAITING_LIST_TABLE)
             
 
     def close(self):
